@@ -2,6 +2,8 @@ name: validate
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -12,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - run: terraform fmt -check
+      - run: terraform fmt -check -recursive
       - run: terraform init -backend=false
       - run: terraform validate
